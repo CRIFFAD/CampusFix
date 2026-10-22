@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CampusFix</title>
+<meta name="description" content="Report broken facilities, water problems and electrical faults on campus and follow each fix from Pending to Resolved.">
+<meta name="theme-color" content="#10202A">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/intro.js"></script>
+</head>
+<body>
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-tape top"><i></i></div>
+  <div class="intro-center">
+    <img class="intro-logo" src="favicon.svg" alt="" width="84" height="84">
+    <div class="intro-word">CampusFix</div>
+    <div class="intro-sub">Report it. Track it. Fixed.</div>
+    <div class="intro-bar"><span></span></div>
+  </div>
+  <div class="intro-tape bottom"><i></i></div>
+</div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="favicon.svg" alt="" width="34" height="34"> CampusFix</a>
+    <nav aria-label="Main">
+      <a href="index.html" aria-current="page">Report &amp; track</a>
+      <a href="admin.html">Staff</a>
+      <span class="user-area" id="user-area"></span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1 class="rise d1">Something broken on campus? <em>We'll fix it.</em></h1>
+      <p class="lead rise d2">Report water problems, electrical faults and damaged facilities in under a minute. Follow your report from Pending to Resolved.</p>
+      <div class="cta-row rise d3">
+        <a class="btn primary big" href="#report">Report an issue</a>
+        <a class="btn ghost big" href="#reports">See all reports</a>
+      </div>
+      <div class="hero-stats rise d4" id="hero-stats" aria-label="Report totals"></div>
+    </div>
+    <div class="hero-art rise d3" aria-hidden="true">
+      <svg viewBox="0 0 440 340" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="296" width="440" height="44" fill="#1B3240"/>
+        <rect x="60" y="90" width="230" height="206" rx="6" fill="#2B4656"/>
+        <rect x="60" y="70" width="230" height="26" rx="4" fill="#FFC400"/>
+        <g fill="#10202A">
+          <rect x="82" y="118" width="38" height="46" rx="3"/><rect x="141" y="118" width="38" height="46" rx="3"/><rect x="200" y="118" width="38" height="46" rx="3"/>
+          <rect x="82" y="188" width="38" height="46" rx="3"/><rect x="200" y="188" width="38" height="46" rx="3"/>
+        </g>
+        <rect class="flicker" x="141" y="188" width="38" height="46" rx="3" fill="#FFC400"/>
+        <rect x="136" y="246" width="48" height="50" rx="3" fill="#10202A"/>
+        <rect x="318" y="150" width="86" height="146" rx="6" fill="#1B3240"/>
+        <rect x="334" y="170" width="22" height="30" rx="2" fill="#FFC400"/><rect x="366" y="170" width="22" height="30" rx="2" fill="#10202A"/>
+        <rect x="334" y="214" width="22" height="30" rx="2" fill="#10202A"/><rect x="366" y="214" width="22" height="30" rx="2" fill="#FFC400"/>
+        <g class="sign"><path d="M356 28l50 86H306z" fill="#FFC400" stroke="#10202A" stroke-width="6" stroke-linejoin="round"/>
+        <rect x="351" y="55" width="10" height="30" rx="4" fill="#10202A"/><circle cx="356" cy="98" r="6" fill="#10202A"/></g>
+        <path d="M20 296h40v-20H20z" fill="#FFC400"/><path d="M20 296l20-20M32 296l20-20" stroke="#10202A" stroke-width="5"/>
+      </svg>
+    </div>
+  </div>
+  <div class="tape" aria-hidden="true"></div>
+</section>
+
+<section class="steps" aria-label="How it works">
+  <ol>
+    <li><span class="num">1</span><div><h3>Report it</h3><p>Describe the problem, say where it is and add a photo if you can.</p></div></li>
+    <li><span class="num">2</span><div><h3>Maintenance picks it up</h3><p>Staff review each report and move it to In Progress.</p></div></li>
+    <li><span class="num">3</span><div><h3>Fixed</h3><p>The report is marked Resolved, with a note about what was done.</p></div></li>
+  </ol>
+</section>
+
+<main>
+  <div class="wrap layout">
+    <section class="panel sticky" id="report" aria-labelledby="form-title">
+      <div class="gate hidden" id="gate-view">
+        <div class="gate-ico" aria-hidden="true">&#128273;</div>
+        <h2>Sign in to report an issue</h2>
+        <p>Create a free account so maintenance can follow up with you and you can track your own reports. You can browse all reports without one.</p>
+        <div class="btns"><button class="btn primary big" type="button" data-auth="signup">Create account</button><button class="btn big" type="button" data-auth="signin">Sign in</button></div>
+      </div>
+      <div id="form-view" class="hidden">
+        <h2 id="form-title">Report an issue</h2>
+        <p class="sub">Fields marked * are required.</p>
+        <p class="as-user" id="as-user"></p>
+        <form id="issue-form" novalidate>
+          <div class="field">
+            <label for="title">What is wrong? *</label>
+            <input type="text" id="title" maxlength="80" placeholder="e.g. Toilet flush not working" autocomplete="off">
+            <div class="error-text" data-for="title"></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="category">Category *</label><select id="category"></select><div class="error-text" data-for="category"></div></div>
+            <div class="field"><label for="priority">Urgency</label><select id="priority"></select></div>
+          </div>
+          <div class="field">
+            <label for="location">Location *</label>
+            <input type="text" id="location" maxlength="80" placeholder="Building, floor or room" autocomplete="off">
+            <div class="error-text" data-for="location"></div>
+          </div>
+          <div class="field">
+            <label for="description">Description *</label>
+            <textarea id="description" maxlength="800" placeholder="What happened, since when, and who is affected?"></textarea>
+            <div class="error-text" data-for="description"></div>
+          </div>
+          <div class="field">
+            <label for="image">Photo <span class="opt">(optional)</span></label>
+            <label class="drop" id="drop" for="image"><span>Tap to add a photo or drag one here</span><input type="file" id="image" accept="image/*"></label>
+            <div class="preview hidden" id="preview"><img id="preview-img" alt="Selected photo preview"><button type="button" class="btn small" id="remove-img">Remove</button></div>
+            <div class="error-text" data-for="image"></div>
+          </div>
+          <div class="trap" aria-hidden="true"><label>Leave this empty<input type="text" id="website" tabindex="-1" autocomplete="off"></label></div>
+          <button class="btn primary block big" id="submit" type="submit">Submit report</button>
+        </form>
+      </div>
+      <div class="success hidden" id="success-view" role="status">
+        <div class="tick" aria-hidden="true">&#10003;</div>
+        <h2>Report received</h2>
+        <div class="bigref" id="big-ref"></div>
+        <p>Keep this reference number. Search for it in the list to follow your report.</p>
+        <div class="btns"><button class="btn" id="copy-ref" type="button">Copy reference</button><button class="btn dark" id="another" type="button">Report another issue</button></div>
+      </div>
+    </section>
+
+    <section id="reports" aria-labelledby="list-title">
+      <h2 class="section-title" id="list-title">Reported issues</h2>
+      <p class="section-sub">Everything reported on campus, newest first.</p>
+      <div class="chips" id="status-chips" role="group" aria-label="Filter by status"></div>
+      <div class="toolbar">
+        <div class="search"><label class="sr-only" for="search">Search reports</label><input type="search" id="search" placeholder="Search by keyword, place or reference (e.g. CF-1001)"></div>
+        <div><label class="sr-only" for="f-category">Category</label><select id="f-category"></select></div>
+        <div><label class="sr-only" for="sort">Sort</label><select id="sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="urgent">Most urgent</option></select></div>
+        <button class="btn" id="clear" type="button">Clear</button>
+      </div>
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="issues" id="issues"></div>
+      <div class="more hidden" id="more"><button class="btn" id="more-btn" type="button">Show more reports</button></div>
+    </section>
+  </div>
+</main>
+
+<dialog id="auth" aria-labelledby="auth-title">
+  <div class="dlg-head"><h2 id="auth-title">Welcome back</h2><button class="btn small" id="auth-close" type="button">Close</button></div>
+  <div class="dlg-body">
+    <div class="tabs" role="tablist" aria-label="Account">
+      <button type="button" role="tab" data-tab="signin" aria-selected="true">Sign in</button>
+      <button type="button" role="tab" data-tab="signup" aria-selected="false">Create account</button>
+    </div>
+    <form id="auth-form" novalidate>
+      <div class="field hidden" id="f-name"><label for="a-name">Full name</label><input type="text" id="a-name" maxlength="50" autocomplete="name"></div>
+      <div class="field"><label for="a-email">Email</label><input type="text" id="a-email" inputmode="email" autocapitalize="none" spellcheck="false" autocomplete="email"></div>
+      <div class="field"><label for="a-pass">Password</label><input type="password" id="a-pass" autocomplete="current-password"><div class="hint" id="a-hint"></div></div>
+      <div class="error-text" id="auth-err" role="alert"></div>
+      <div class="notice hidden" id="auth-msg" role="status"></div>
+      <button class="btn primary block big" id="auth-submit" type="submit">Sign in</button>
+      <button class="linkbtn" id="forgot" type="button">Forgot your password?</button>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="recover" aria-labelledby="recover-title">
+  <div class="dlg-head"><h2 id="recover-title">Choose a new password</h2><button class="btn small" id="recover-close" type="button">Close</button></div>
+  <div class="dlg-body">
+    <form id="recover-form" novalidate>
+      <div class="field"><label for="r-pass">New password</label><input type="password" id="r-pass" autocomplete="new-password"><div class="hint">At least 8 characters.</div></div>
+      <div class="error-text" id="recover-err" role="alert"></div>
+      <button class="btn primary block big" id="recover-submit" type="submit">Save new password</button>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="detail" aria-labelledby="detail-title">
+  <div class="dlg-head"><h2 id="detail-title"></h2><button class="btn small" id="detail-close" type="button">Close</button></div>
+  <div class="dlg-body" id="detail-body"></div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="tape" aria-hidden="true"></div>
+  <div class="wrap"><span>CampusFix · Campus maintenance reporting</span><a href="admin.html">Staff sign in</a></div>
+  <marquee behavior="" direction="">CREATED BY <a href="https://www.instagram.com/softstanza/"
+   target="_blank"
+   rel="noopener noreferrer"
+   style="color: #E1306C; text-decoration: none; font-weight: bold;">
+    CRIFIX MEDIA
+</a></marquee>
+
+
+</footer>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/common.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CampusFix Staff — Manage reports</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#10202A">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="favicon.svg" alt="" width="34" height="34"> CampusFix</a>
+    <nav aria-label="Main"><a href="index.html">Report &amp; track</a><a href="admin.html" aria-current="page">Staff</a></nav>
+  </div>
+</header>
+<div class="tape" aria-hidden="true"></div>
+
+<main>
+  <div class="wrap">
+    <section id="login" class="login-wrap panel hidden" aria-labelledby="login-title">
+      <h2 id="login-title">Staff sign in</h2>
+      <p class="sub">Sign in to review and update campus maintenance reports.</p>
+      <form id="login-form">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="text" id="email" inputmode="email" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="pass">Password</label>
+          <input type="password" id="pass" autocomplete="current-password" required>
+          <div class="error-text" id="login-err" role="alert"></div>
+        </div>
+        <button class="btn primary block big" id="login-btn" type="submit">Sign in</button>
+      </form>
+    </section>
+
+    <section id="dash" class="hidden">
+      <div class="page-head">
+        <div><h1>Reports dashboard</h1><p>Review reports, change their status and leave notes students can see.</p></div>
+        <button class="btn" id="logout" type="button">Sign out</button>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="dist" id="dist" role="img" aria-label="Share of reports by status"></div>
+      <div class="admin-tools">
+        <div class="search"><label class="sr-only" for="a-search">Search</label><input type="search" id="a-search" placeholder="Search reports, places, names…"></div>
+        <div><label class="sr-only" for="a-status">Status</label><select id="a-status"></select></div>
+        <div><label class="sr-only" for="a-category">Category</label><select id="a-category"></select></div>
+        <div><label class="sr-only" for="a-priority">Urgency</label><select id="a-priority"></select></div>
+        <div><label class="sr-only" for="a-sort">Sort</label><select id="a-sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="urgent">Most urgent</option></select></div>
+      </div>
+      <p class="count" id="a-count" aria-live="polite"></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ref</th><th>Issue</th><th>Location</th><th>Urgency</th><th>Reported</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="more hidden" id="a-more"><button class="btn" id="a-more-btn" type="button">Show more reports</button></div>
+      <div class="footer-actions"><button class="btn" id="export" type="button">Export filtered list (CSV)</button></div>
+    </section>
+  </div>
+</main>
+
+<dialog id="manage" aria-labelledby="m-title">
+  <div class="dlg-head"><h2 id="m-title"></h2><button class="btn small" id="m-close" type="button">Close</button></div>
+  <div class="dlg-body">
+    <div id="m-detail"></div>
+    <form id="m-form" class="manage">
+      <h3 class="sec">Update this report</h3>
+      <div class="field"><label for="m-status">Status</label><select id="m-status"></select></div>
+      <div class="field"><label for="m-note">Note for students <span class="opt">(visible on the public page)</span></label>
+        <textarea id="m-note" maxlength="400" placeholder="e.g. Electrician booked for Thursday morning."></textarea></div>
+      <div class="actions">
+        <button class="btn danger" id="m-delete" type="button">Delete report</button>
+        <button class="btn primary" id="m-save" type="submit">Save update</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/common.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
